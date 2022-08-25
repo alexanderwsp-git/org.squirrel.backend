@@ -123,6 +123,17 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+### Docker run
+```bash
+docker build -t alexanderwsp/org.squirrel.backend:1.0.3 .
+docker run --rm -it --name orgsquirrel -p 3000:3000 \
+ --network=apps \
+ -e DATABASE_URL="postgresql://admin:adm1n@dbpostgres:5432/squirrel?schema=public" \
+ -e PORT=3000 \
+ -e URL_RMQ="amqp://guest:guest@rabbitmq:5672/notification" \
+ alexanderwsp/org.squirrel.backend:1.0.3
+```
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).

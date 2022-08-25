@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  squirrel:
+    image: alexanderwsp/org.squirrel.backend:1.0.3
+    container_name: squirrel
+    restart: always
+    environment:
+      - DATABASE_URL="postgresql://admin:adm1n@IP:5432/squirrel?schema=public"
+      - PORT=3000
+      - URL_RMQ="amqp://guest:guest@IP:5672/notification"
+    ports:
+      - 3000:3000
+    networks:
+      - apps
+
+networks:
+  apps:
+    name: apps
+    external: true
