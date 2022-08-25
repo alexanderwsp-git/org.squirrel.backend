@@ -11,7 +11,7 @@ import { Transport, ClientsModule } from '@nestjs/microservices';
         name: 'EMPLOYEE_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: ['amqp://guest:guest@localhost:5672/'],
+          urls: ['amqp://guest:guest@localhost:5672/notification'],
           queue: 'api-message',
           queueOptions: {
             durable: false
