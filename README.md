@@ -67,6 +67,19 @@ npx prisma
 npx prisma init
 ```
 
+`Set up database and prisma models on schema.prisma and .env`
+
+### Generate SQL Migrations
+```bash
+npx prisma migrate dev --name init
+```
+
+### Install prisma client
+```bash
+npm install @prisma/client
+
+```
+
 ## Installation
 
 ```bash
