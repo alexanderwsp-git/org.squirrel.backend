@@ -33,10 +33,21 @@
 nest new org.squirrel.backend
 ```
 
+### Install nest microservice
+```bash
+npm i @nestjs/microservices
+```
+
+### Installing rabbitMQ package
+```bash
+npm i --save amqplib amqp-connection-manager
+```
+
 ### Installing swagger
 ```bash
 npm install --save @nestjs/swagger
 ```
+
 ### Add this on your `main.ts`
 ```Js
 import { NestFactory } from '@nestjs/core';

@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query, Inject } from '@nestjs/common';
 import { Employee as EmployeeModel, Prisma } from '@prisma/client';
+import { ClientProxy } from '@nestjs/microservices';
 import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
@@ -7,7 +8,8 @@ import { Response } from 'src/response/response';
 
 @Controller('employee')
 export class EmployeeController {
-  constructor(private readonly employeeService: EmployeeService) { }
+  constructor(private readonly employeeService: EmployeeService,
+    @Inject('EMPLOYEE_SERVICE') private readonly client: ClientProxy) { }
 
   @Post()
   async createEmployee(@Body() createEmployeeDto: CreateEmployeeDto, @Res() res): Promise<Response> {
@@ -26,6 +28,12 @@ export class EmployeeController {
       searchString,
       orderBy
     });
+  }
+
+  @Get('send')
+  sendMessage() {
+    this.client.emit<any>('send-message', 'send employee alexander');
+    return 'message sent';
   }
 
   @Get(':id')
