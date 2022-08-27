@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import { EmployeeController } from './employee.controller';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { Transport, ClientsModule } from '@nestjs/microservices';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
   imports: [
@@ -19,8 +19,9 @@ import { Transport, ClientsModule } from '@nestjs/microservices';
         },
       },
     ]),
+    PrismaModule
   ],
   controllers: [EmployeeController],
-  providers: [EmployeeService, PrismaService]
+  providers: [EmployeeService]
 })
 export class EmployeeModule { }

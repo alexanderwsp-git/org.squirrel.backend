@@ -31,6 +31,7 @@
 ### Creating the project
 ```bash
 nest new org.squirrel.backend
+npm i --save @nestjs/axios
 ```
 
 ### Install nest microservice

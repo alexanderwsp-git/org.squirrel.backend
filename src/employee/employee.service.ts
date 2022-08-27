@@ -7,12 +7,12 @@ import { Response } from 'src/response/response';
 @Injectable()
 export class EmployeeService {
 
-  constructor(private prisma: PrismaService) { }
+  constructor(private prismaService: PrismaService) { }
 
   async createEmployee(data: Prisma.EmployeeCreateInput): Promise<Response> {
     let response: Response = new Response();
     try {
-      response.data = await this.prisma.employee.create({
+      response.data = await this.prismaService.employee.create({
         data,
       });
       response.status = HttpStatus.CREATED;
@@ -25,22 +25,21 @@ export class EmployeeService {
   }
 
   async findEmployees(): Promise<Employee[]> {
-    return this.prisma.employee.findMany()
+    return this.prismaService.employee.findMany()
   }
 
-  async findEmployeesBy({ searchString, orderBy}): Promise<Employee[]> {
+  async findEmployeesBy({ searchString, orderBy }): Promise<Employee[]> {
     const or = searchString ? {
       OR: [
         { email: { contains: searchString } },
         { name: { contains: searchString } },
       ],
     } : {}
-    return this.prisma.employee.findMany({
+    return this.prismaService.employee.findMany({
       where: {
         status: "Active",
         ...or
       },
-      // include: { name: true },
       orderBy: {
         createdAt: orderBy
       }
@@ -55,7 +54,7 @@ export class EmployeeService {
     let response: Response = new Response();
     const { where, data } = params;
     try {
-      response.data = await this.prisma.employee.update({
+      response.data = await this.prismaService.employee.update({
         data,
         where,
       });
